@@ -1,6 +1,5 @@
 package com.eyinfo.kafka.entity;
 
-import com.eyinfo.foundation.utils.JsonUtils;
 import com.eyinfo.kafka.KafkaConstanst;
 import com.eyinfo.kafka.properties.KafkaMessage;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -22,14 +21,7 @@ public class BodyMessage implements Message<String> {
 
     @Override
     public String getPayload() {
-        String content = "";
-        Object body = msg.getBody();
-        if (body instanceof String) {
-            content = String.valueOf(body);
-        } else {
-            content = JsonUtils.toStr(body);
-        }
-        return content;
+        return msg.getBody();
     }
 
     @Override

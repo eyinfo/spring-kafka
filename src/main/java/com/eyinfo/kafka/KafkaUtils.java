@@ -27,7 +27,7 @@ public class KafkaUtils {
      * @param successCallback 发送成功回调
      * @param failureCallback 发送失败回调
      */
-    public static <T> void send(KafkaTemplate<String, String> kafkaTemplate, String groupId, KafkaMessage message, Action<SendResult<String, String>> successCallback, Action<String> failureCallback) {
+    public static void send(KafkaTemplate<String, String> kafkaTemplate, String groupId, KafkaMessage message, Action<SendResult<String, String>> successCallback, Action<String> failureCallback) {
         if (kafkaTemplate == null || message == null || message.getBody() == null || message.getTopic() == null || message.getTopic().isEmpty()) {
             return;
         }
@@ -52,7 +52,7 @@ public class KafkaUtils {
      * @param message         kafka消息
      * @param successCallback 发送成功回调
      */
-    public static <T> void send(KafkaTemplate<String, String> kafkaTemplate, String groupId, KafkaMessage message, Action<SendResult<String, String>> successCallback) {
+    public static void send(KafkaTemplate<String, String> kafkaTemplate, String groupId, KafkaMessage message, Action<SendResult<String, String>> successCallback) {
         send(kafkaTemplate, groupId, message, successCallback, null);
     }
 
@@ -63,7 +63,7 @@ public class KafkaUtils {
      * @param groupId       消息组id
      * @param message       kafka消息
      */
-    public static <T> void send(KafkaTemplate<String, String> kafkaTemplate, String groupId, KafkaMessage message) {
+    public static void send(KafkaTemplate<String, String> kafkaTemplate, String groupId, KafkaMessage message) {
         send(kafkaTemplate, groupId, message, null, null);
     }
 }

@@ -1,6 +1,6 @@
 package com.eyinfo.kafka.properties;
 
-public interface KafkaMessage<T> {
+public interface KafkaMessage {
 
     /**
      * 获取消息主题
@@ -14,7 +14,7 @@ public interface KafkaMessage<T> {
      *
      * @return kafka消息内容
      */
-    public T getBody();
+    public String getBody();
 
     /**
      * 获取消费标识

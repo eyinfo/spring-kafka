@@ -4,7 +4,7 @@ import org.springframework.kafka.support.Acknowledgment;
 
 import java.io.Serializable;
 
-public class TransferEntity<T> implements Serializable {
+public class TransferEntity implements Serializable {
 
     /**
      * 消息id
@@ -24,7 +24,7 @@ public class TransferEntity<T> implements Serializable {
     /**
      * 消费内容
      */
-    private T body;
+    private String body;
 
     public String getMessageId() {
         return messageId;
@@ -50,11 +50,11 @@ public class TransferEntity<T> implements Serializable {
         this.ack = ack;
     }
 
-    public T getBody() {
+    public String getBody() {
         return body;
     }
 
-    public void setBody(T body) {
+    public void setBody(String body) {
         this.body = body;
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.messaging.handler.annotation.Header;
 
 import java.util.Map;
 
-public abstract class BaseSubscribe<T> extends ConsumerRunnable<T> {
+public abstract class BaseSubscribe extends ConsumerRunnable {
     public void onReceiveKafkaMessage(ConsumerRecord<String, String> record, Acknowledgment ack,
                                       @Header(KafkaHeaders.GROUP_ID) String groupId,
                                       @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String messageId,
@@ -26,7 +26,7 @@ public abstract class BaseSubscribe<T> extends ConsumerRunnable<T> {
         if (runnable == null) {
             return;
         }
-        TransferEntity<Object> entity = new TransferEntity<>();
+        TransferEntity entity = new TransferEntity();
         entity.setAck(ack);
         entity.setBody(record.value());
         entity.setMessageId(messageId);

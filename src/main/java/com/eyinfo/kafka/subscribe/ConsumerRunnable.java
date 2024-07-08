@@ -2,7 +2,7 @@ package com.eyinfo.kafka.subscribe;
 
 import com.eyinfo.kafka.entity.TransferEntity;
 
-public abstract class ConsumerRunnable<T> {
+public abstract class ConsumerRunnable {
     public ConsumerRunnable() {
 
     }
@@ -12,5 +12,5 @@ public abstract class ConsumerRunnable<T> {
      *
      * @param entity 数据传输对象
      */
-    public abstract void run(TransferEntity<T> entity);
+    public abstract void run(TransferEntity entity);
 }
