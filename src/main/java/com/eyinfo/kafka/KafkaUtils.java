@@ -18,6 +18,11 @@ public class KafkaUtils {
         return consumerMap;
     }
 
+    public static <T extends ConsumerRunnable> void subscribe(String groupId, String topic, T runnable) {
+        String key = String.format("%s_%s", groupId, topic);
+        consumerMap.put(key, runnable);
+    }
+
     /**
      * 发送kafka消息
      *
