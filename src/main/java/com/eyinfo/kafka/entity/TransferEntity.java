@@ -42,10 +42,6 @@ public class TransferEntity implements Serializable {
         this.consumerTag = consumerTag;
     }
 
-    public Acknowledgment getAck() {
-        return ack;
-    }
-
     public void setAck(Acknowledgment ack) {
         this.ack = ack;
     }
@@ -56,5 +52,11 @@ public class TransferEntity implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public void acknowledge() {
+        if (ack != null) {
+            ack.acknowledge();
+        }
     }
 }
