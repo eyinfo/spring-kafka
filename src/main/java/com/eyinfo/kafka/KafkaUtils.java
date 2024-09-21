@@ -6,10 +6,10 @@ import com.eyinfo.kafka.properties.KafkaMessage;
 import com.eyinfo.kafka.subscribe.ConsumerRunnable;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class KafkaUtils {
     private static Map<String, ConsumerRunnable> consumerMap = new HashMap<>();
@@ -37,14 +37,16 @@ public class KafkaUtils {
             return;
         }
         BodyMessage bodyMessage = new BodyMessage(message, groupId);
-        ListenableFuture<SendResult<String, String>> listenableFuture = kafkaTemplate.send(bodyMessage);
-        listenableFuture.addCallback(success -> {
-            if (successCallback != null) {
-                successCallback.call(success);
-            }
-        }, failure -> {
-            if (failureCallback != null) {
-                failureCallback.call(failure.getMessage());
+        CompletableFuture<SendResult<String, String>> completableFuture = kafkaTemplate.send(bodyMessage);
+        completableFuture.whenComplete((sendResult, throwable) -> {
+            if (throwable == null) {
+                if (successCallback != null) {
+                    successCallback.call(sendResult);
+                }
+            } else {
+                if (failureCallback != null) {
+                    failureCallback.call(throwable.getMessage());
+                }
             }
         });
     }
