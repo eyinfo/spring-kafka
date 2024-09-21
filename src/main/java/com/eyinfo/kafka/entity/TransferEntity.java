@@ -26,6 +26,10 @@ public class TransferEntity implements Serializable {
      */
     private String body;
 
+    private String groupId;
+
+    private String topic;
+
     public String getMessageId() {
         return messageId;
     }
@@ -52,6 +56,22 @@ public class TransferEntity implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public String getTopic() {
+        return topic;
     }
 
     public void acknowledge() {

@@ -26,6 +26,8 @@ public abstract class BaseSubscribe extends ConsumerRunnable {
         }
         TransferEntity entity = new TransferEntity();
         entity.setAck(ack);
+        entity.setGroupId(groupId);
+        entity.setTopic(topic);
         String msgBody = record.value();
         if (JsonUtils.isEmpty(msgBody)) {
             entity.setBody(msgBody);
