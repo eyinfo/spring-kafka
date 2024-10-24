@@ -3,6 +3,7 @@ package com.eyinfo.kafka.entity;
 import org.springframework.kafka.support.Acknowledgment;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class TransferEntity implements Serializable {
 
@@ -26,9 +27,20 @@ public class TransferEntity implements Serializable {
      */
     private String body;
 
+    /**
+     * topic group
+     */
     private String groupId;
 
+    /**
+     * 消息主题
+     */
     private String topic;
+
+    /**
+     * 头信息
+     */
+    private Map<String, Object> headers;
 
     public String getMessageId() {
         return messageId;
@@ -47,6 +59,7 @@ public class TransferEntity implements Serializable {
     }
 
     public void setAck(Acknowledgment ack) {
+        ack.acknowledge();
         this.ack = ack;
     }
 
@@ -78,5 +91,13 @@ public class TransferEntity implements Serializable {
         if (ack != null) {
             ack.acknowledge();
         }
+    }
+
+    public Map<String, Object> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Map<String, Object> headers) {
+        this.headers = headers;
     }
 }

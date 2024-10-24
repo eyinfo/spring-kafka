@@ -11,6 +11,11 @@ import org.springframework.kafka.support.Acknowledgment;
 import java.util.Map;
 
 public abstract class BaseSubscribe extends ConsumerRunnable {
+
+    public void onHeaders(Map<String, Object> headers) {
+        //这里绑定头信息
+    }
+
     public void onReceiveKafkaMessage(ConsumerRecord<String, String> record,
                                       Acknowledgment ack,
                                       String groupId) {
@@ -37,7 +42,9 @@ public abstract class BaseSubscribe extends ConsumerRunnable {
             entity.setBody(transferBody.getBody());
             entity.setMessageId(transferBody.getMessageId());
             entity.setConsumerTag(transferBody.getConsumerTag());
+            entity.setHeaders(transferBody.getHeaders());
         }
+        onHeaders(entity.getHeaders());
         runnable.run(entity);
     }
 }

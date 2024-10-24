@@ -34,6 +34,7 @@ public class BodyMessage implements Message<String> {
         transferBody.setMessageId(getMessageId());
         transferBody.setConsumerTag(msg.getConsumerTag());
         transferBody.setBody(msg.getBody());
+        transferBody.setHeaders(msg.getHeaders());
         return JsonUtils.toStr(transferBody);
     }
 

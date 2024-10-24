@@ -1,6 +1,7 @@
 package com.eyinfo.kafka.entity;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class TransferBody implements Serializable {
 
@@ -11,6 +12,8 @@ public class TransferBody implements Serializable {
     private String consumerTag;
 
     private String body;
+
+    private Map<String, Object> headers;
 
     public String getGroupId() {
         return groupId;
@@ -42,5 +45,13 @@ public class TransferBody implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Map<String, Object> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Map<String, Object> headers) {
+        this.headers = headers;
     }
 }

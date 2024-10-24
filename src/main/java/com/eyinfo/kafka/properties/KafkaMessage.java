@@ -1,5 +1,7 @@
 package com.eyinfo.kafka.properties;
 
+import java.util.Map;
+
 public interface KafkaMessage {
 
     /**
@@ -7,19 +9,26 @@ public interface KafkaMessage {
      *
      * @return kafka topic
      */
-    public String getTopic();
+    String getTopic();
 
     /**
      * 获取消息体
      *
      * @return kafka消息内容
      */
-    public String getBody();
+    String getBody();
 
     /**
      * 获取消费标识
      *
      * @return kafka消费标识
      */
-    public String getConsumerTag();
+    String getConsumerTag();
+
+    /**
+     * 获取头信息
+     */
+    Map<String, Object> getHeaders();
+
+    void setHeaders(Map<String, Object> headers);
 }

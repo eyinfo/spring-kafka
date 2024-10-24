@@ -2,6 +2,7 @@ package com.eyinfo.kafka;
 
 import com.eyinfo.foundation.events.Action;
 import com.eyinfo.kafka.entity.BodyMessage;
+import com.eyinfo.kafka.listener.KafkaHeaderBindListener;
 import com.eyinfo.kafka.properties.KafkaMessage;
 import com.eyinfo.kafka.subscribe.ConsumerRunnable;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -16,6 +17,12 @@ public class KafkaUtils {
 
     public static Map<String, ConsumerRunnable> getConsumerMap() {
         return consumerMap;
+    }
+
+    private static KafkaHeaderBindListener kafkaHeaderBindListener;
+
+    public static void registerHeaderBindListener(KafkaHeaderBindListener listener) {
+        kafkaHeaderBindListener = listener;
     }
 
     public static <T extends ConsumerRunnable> void subscribe(String groupId, String topic, T runnable) {
@@ -35,6 +42,11 @@ public class KafkaUtils {
     public static void send(KafkaTemplate<String, String> kafkaTemplate, String groupId, KafkaMessage message, Action<SendResult<String, String>> successCallback, Action<String> failureCallback) {
         if (kafkaTemplate == null || message == null || message.getBody() == null || message.getTopic() == null || message.getTopic().isEmpty()) {
             return;
+        }
+        if (kafkaHeaderBindListener != null) {
+            Map<String, Object> headers = new HashMap<>();
+            kafkaHeaderBindListener.onHeaders(headers);
+            message.setHeaders(headers);
         }
         BodyMessage bodyMessage = new BodyMessage(message, groupId);
         CompletableFuture<SendResult<String, String>> completableFuture = kafkaTemplate.send(bodyMessage);
